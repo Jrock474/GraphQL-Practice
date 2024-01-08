@@ -23,6 +23,8 @@ export const typeDefs = `#graphql
     # entry points where users are able to view data from example: "Reviews" show all data in the Reviews object" 
     # this is REQUIRED for every schema to be able query data
     type Query{
-        reviews: [Reviews]
+        reviews: [Review]
+        games: [Game]
+        authors: [Author]
     }
 `
