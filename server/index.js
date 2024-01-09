@@ -16,8 +16,12 @@ const resolvers = {
             return users
         },
 
-        monoData() {
-            return monoData
+        user(_, args){
+            return users.find((user) => user.id == args.id)
+        },
+
+        userMonoData(_, args) {
+            return monoData.find((data) => data.userID == args.userID)
         }
     }
 }

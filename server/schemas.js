@@ -6,21 +6,23 @@ export const typeDefs = `#graphql
     # the "!" means the field is required
     type User {
         id: ID!
-        username: String!
-        email: String!
-        createdAt: String!
+        username: String
+        email: String
+        createdAt: String
     }
 
-    type monoStats{
-        id: ID!
-        userID: Int!
-        monoData(
-            health: Int!
-            hunger: Int!
-            cleanliness: Int!
-            happiness: Int!
-            exp: Int!
-        ) : Int
+    type MonoData {
+        health: Int!
+        hunger: Int!
+        cleanliness: Int!
+        happiness: Int!
+        exp: Int!
+    } 
+
+    type MonoStats{
+        id: ID
+        userID: Int
+        monoData: [MonoData]
     }
 
     
@@ -28,6 +30,7 @@ export const typeDefs = `#graphql
     # this is REQUIRED for every schema to be able query data
     type Query{
         users: [User]
-        monoData: monoStats
+        user(id: ID!): User
+        userMonoData(userID: Int!): MonoStats
     }
 `
