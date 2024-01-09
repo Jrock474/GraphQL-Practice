@@ -4,27 +4,30 @@ export const typeDefs = `#graphql
     # each type is an object that contains appropriate keys and values
     # the key can be named anything, but the value MUST be a datatype
     # the "!" means the field is required
-    type Game {
+    type User {
         id: ID!
-        title: String!
-        platform: [String!]!
+        username: String!
+        email: String!
+        createdAt: String!
     }
 
-    type Review{
+    type monoStats{
         id: ID!
-        rating: Int!
-        content: String!
+        userID: Int!
+        monoData(
+            health: Int!
+            hunger: Int!
+            cleanliness: Int!
+            happiness: Int!
+            exp: Int!
+        ) : Int
     }
-    type Author {
-        id: ID!
-        name: String!
-    }
+
     
     # entry points where users are able to view data from example: "Reviews" show all data in the Reviews object" 
     # this is REQUIRED for every schema to be able query data
     type Query{
-        reviews: [Review]
-        games: [Game]
-        authors: [Author]
+        users: [User]
+        monoData: monoStats
     }
 `
