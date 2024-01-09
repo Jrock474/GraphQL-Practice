@@ -4,6 +4,7 @@ export const typeDefs = `#graphql
     # each type is an object that contains appropriate keys and values
     # the key can be named anything, but the value MUST be a datatype
     # the "!" means the field is required
+    # only one field will be returned in GraphQL
     type User {
         id: ID!
         username: String
