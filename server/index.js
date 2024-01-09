@@ -19,7 +19,6 @@ const resolvers = {
         monoData() {
             return monoData
         }
-
     }
 }
 
@@ -29,5 +28,4 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server);
-console.log(monoData)
 console.log(`🚀 Server ready at ${url}`);

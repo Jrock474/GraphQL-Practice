@@ -6,13 +6,13 @@ export const typeDefs = `#graphql
     # the "!" means the field is required
     type User {
         id: ID!
-        userName: String!
+        username: String!
         email: String!
         createdAt: String!
     }
 
     type monoStats{
-        ID: ID!
+        id: ID!
         userID: Int!
         monoData(
             health: Int!
