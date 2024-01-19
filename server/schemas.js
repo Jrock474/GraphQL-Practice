@@ -35,3 +35,25 @@ export const typeDefs = `#graphql
         userMonoData(userID: Int!): MonoStats
     }
 `
+
+const monoDataFetch = await fetch("https://capstone-project-1cyy.vercel.app/monostats")
+const monoData = await monoDataFetch.json()
+
+const usersFetch = await fetch("https://capstone-project-1cyy.vercel.app")
+const users = await usersFetch.json()
+
+export const resolvers = {
+    Query: {
+        users(){
+            return users
+        },
+
+        user(_, args){
+            return users.find((user) => user.id == args.id)
+        },
+
+        userMonoData(_, args) {
+            return monoData.find((data) => data.userID == args.userID)
+        }
+    }
+}
