@@ -1,7 +1,5 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-
-// types
 import { typeDefs, resolvers } from './schemas.js';
 
 const server = new ApolloServer({
@@ -9,6 +7,8 @@ const server = new ApolloServer({
   resolvers
 });
 
-
-const { url } = await startStandaloneServer(server);
+const { url } = await startStandaloneServer(server, {
+    context: async ({ req }) => ({ token: req.headers.token }),
+    listen: { port: 4000 },
+  });
 console.log(`🚀 Server ready at ${url}`);
