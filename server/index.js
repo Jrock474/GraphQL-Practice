@@ -1,7 +1,15 @@
-import app from "./api/index.js";
-import consola from "consola";
-import dotenv from "dotenv";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { typeDefs, resolvers } from './schemas.js';
 
-dotenv.config();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
 
-app.listen(3000, () => consola.info("Server started"));
+const { url } = await startStandaloneServer(server, {
+    context: async ({ req }) => ({ token: req.headers.token }),
+    listen: { port: 4000 },
+  });
+console.log(`🚀 Server ready at ${url}`);
+
