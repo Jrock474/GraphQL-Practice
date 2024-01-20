@@ -1,3 +1,7 @@
+import dotenv from "dotenv"
+
+dotenv.config();
+
 // This is very similar to how Sequelize set up data migrations
 export const typeDefs = `#graphql
 
@@ -36,10 +40,10 @@ export const typeDefs = `#graphql
     }
 `
 
-const monoDataFetch = await fetch("https://capstone-project-1cyy.vercel.app/monostats")
+const monoDataFetch = await fetch(process.env.MONODATA)
 const monoData = await monoDataFetch.json()
 
-const usersFetch = await fetch("https://capstone-project-1cyy.vercel.app")
+const usersFetch = await fetch(process.env.USERDATA)
 const users = await usersFetch.json()
 
 export const resolvers = {
