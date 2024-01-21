@@ -1,19 +1,38 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './schemas.js';
 import dotenv from "dotenv"
+import express from "express"
+import cors from "cors"
 
 dotenv.config();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
+const port = process.env.PORT 
+
+const app = express();
+app.use(cors())
+
+let apolloServer = null;
+const startServer = async () => {
+    apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers,
+    });
+    await apolloServer.start();
+    apolloServer.applyMiddleware({ app });
+}
+startServer();
+
+app.get("/", function (req, res) {
+    res.json({ data: "api working" });
 });
 
-const { url } = await startStandaloneServer(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
-    listen: { port: process.env.PORT || 3000 },
-  });
-console.log(`🚀 Server ready at ${url}`);
-console.log(process.env.PORT)
+app.listen(port, function () {
+    console.log(`server running on port 4000`);
+    console.log(`gql path is ${apolloServer.graphqlPath}`);
+});
+
+
+
+
+
 
