@@ -22,7 +22,7 @@ const startServer = async () => {
 }
 startServer();
 
-app.get("/", function (req, res) {
+app.get("/rest", function (req, res) {
     res.json({ data: "api working" });
 });
 
