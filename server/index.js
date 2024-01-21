@@ -11,6 +11,14 @@ const port = process.env.PORT
 const app = express();
 app.use(cors())
 
+app.use(cors(
+    {
+      origin: "*",
+      methods: ["POST", "GET", "DELETE", "PUT"],
+      credentials: true
+    }
+  ))
+
 let apolloServer = null;
 const startServer = async () => {
     apolloServer = new ApolloServer({
@@ -22,7 +30,7 @@ const startServer = async () => {
 }
 startServer();
 
-app.get("/rest", function (req, res) {
+app.get("/", function (req, res) {
     res.json({ data: "api working" });
 });
 
