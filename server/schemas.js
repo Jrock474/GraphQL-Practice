@@ -40,10 +40,10 @@ export const typeDefs = `#graphql
     }
 `
 
-const monoDataFetch = await fetch(process.env.MONODATA)
+const monoDataFetch = await fetch("https://capstone-project-1cyy.vercel.app/monostats")
 const monoData = await monoDataFetch.json()
 
-const usersFetch = await fetch(process.env.USERDATA)
+const usersFetch = await fetch("https://capstone-project-1cyy.vercel.app")
 const users = await usersFetch.json()
 
 export const resolvers = {

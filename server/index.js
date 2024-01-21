@@ -3,15 +3,14 @@ import { typeDefs, resolvers } from './schemas.js';
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
-import bodyparser from "body-parser" 
+import bodyParser from "body-parser" 
 
 dotenv.config();
 
 const port = process.env.PORT 
 
-app.use(bodyparser.json())
-
 const app = express();
+app.use(bodyParser.json())
 app.use(cors())
 
 app.use(cors(
@@ -37,7 +36,7 @@ app.get("/", function (req, res) {
     res.json({ data: "api working" });
 });
 
-app.listen(port, function () {
+app.listen(port,  () => {
     console.log(`server running on port 4000`);
     console.log(`gql path is ${apolloServer.graphqlPath}`);
 });
