@@ -3,13 +3,24 @@ import { typeDefs, resolvers } from './schemas.js';
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
+import bodyparser from "body-parser" 
 
 dotenv.config();
 
 const port = process.env.PORT 
 
+app.use(bodyparser.json())
+
 const app = express();
 app.use(cors())
+
+app.use(cors(
+    {
+      origin: "*",
+      methods: ["POST", "GET", "DELETE", "PUT"],
+      credentials: true
+    }
+  ))
 
 let apolloServer = null;
 const startServer = async () => {
@@ -22,7 +33,7 @@ const startServer = async () => {
 }
 startServer();
 
-app.get("/rest", function (req, res) {
+app.get("/", function (req, res) {
     res.json({ data: "api working" });
 });
 
