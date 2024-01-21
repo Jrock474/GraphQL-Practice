@@ -13,6 +13,7 @@ const port = 4000
 
 const app = express();
 app.use(cors())
+app.use(bodyParser)
 
 app.use(cors(
     {
