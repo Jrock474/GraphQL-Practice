@@ -3,10 +3,13 @@ import { typeDefs, resolvers } from './schemas.js';
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
+import bodyparser from "body-parser" 
 
 dotenv.config();
 
 const port = process.env.PORT 
+
+app.use(bodyparser.json())
 
 const app = express();
 app.use(cors())
