@@ -13,7 +13,7 @@ const port = 4000
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 app.use(cors(
     {
@@ -33,12 +33,12 @@ const startServer = async () => {
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
     await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
+    apolloServer.applyMiddleware({ app, path: "/" });
 }
 startServer();
 
-app.get("/", function (req, res) {
-    res.redirect("/graphql")
+app.get("/graphql", function (req, res) {
+    res.redirect("/")
 });
 
 app.listen(port,  () => {
