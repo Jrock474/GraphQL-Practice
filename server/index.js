@@ -4,7 +4,7 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
-import bodyParser from "body-parser"
+import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from 'apollo-server-core';
 import http from "http" 
 
 dotenv.config();
@@ -30,7 +30,16 @@ const startServer = async () => {
     apolloServer = new ApolloServer({
         typeDefs,
         resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+        plugins: [
+            ApolloServerPluginDrainHttpServer({ httpServer }),
+            process.env.NODE_ENV === 'production'
+            ?ApolloServerPluginLandingPageProductionDefault({
+            graphRef: 'my-graph-id@my-graph-variant',
+            footer: false,
+        })
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+
+        ]
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app, path: "/" });
