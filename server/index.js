@@ -1,10 +1,8 @@
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './schemas.js';
-import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
-import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from 'apollo-server-core';
 import http from "http" 
 
 dotenv.config();
@@ -30,9 +28,11 @@ const startServer = async () => {
     apolloServer = new ApolloServer({
         typeDefs,
         resolvers,
+        // allows users to introspect graph to see schema
         introspection: true,
     });
     await apolloServer.start();
+    // adjusts enpoint for server
     apolloServer.applyMiddleware({ app, path: "/" });
 }
 startServer();
