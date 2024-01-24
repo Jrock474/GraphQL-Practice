@@ -30,16 +30,7 @@ const startServer = async () => {
     apolloServer = new ApolloServer({
         typeDefs,
         resolvers,
-        plugins: [
-            ApolloServerPluginDrainHttpServer({ httpServer }),
-            process.env.NODE_ENV === 'production'
-            ?ApolloServerPluginLandingPageProductionDefault({
-            graphRef: 'my-graph-id@my-graph-variant',
-            footer: false,
-        })
-      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
-
-        ]
+        introspection: true,
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app, path: "/" });
